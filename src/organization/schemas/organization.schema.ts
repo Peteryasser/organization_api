@@ -1,18 +1,23 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
-export type OrganizationDocument = Organization & Document;
-
 @Schema()
-export class Organization {
+export class Organization extends Document {
   @Prop({ required: true })
   name: string;
 
   @Prop()
   description: string;
 
-  @Prop({ type: [{ userId: { type: Types.ObjectId, ref: 'User' }, accessLevel: String }] })
-  members: { userId: Types.ObjectId; accessLevel: 'creator' | 'read-only' }[];
+  @Prop({
+    type: [
+      {
+        userId: { type: Types.ObjectId, ref: 'User' },
+        roleId: { type: Types.ObjectId, ref: 'Role' },
+      },
+    ],
+  })
+  members: { userId: Types.ObjectId; roleId: Types.ObjectId }[];
 }
 
 export const OrganizationSchema = SchemaFactory.createForClass(Organization);

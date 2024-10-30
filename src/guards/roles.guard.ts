@@ -1,3 +1,5 @@
+// src/common/guards/roles.guard.ts
+
 import {
   Injectable,
   CanActivate,
@@ -22,7 +24,7 @@ export class RolesGuard implements CanActivate {
 
     const accessLevels = {
       'read-only': 1,
-      creator: 2,
+      'creator': 2,
     };
 
     const request = context.switchToHttp().getRequest();
@@ -42,9 +44,10 @@ export class RolesGuard implements CanActivate {
       throw new ForbiddenException('Access denied. You are not a member of this organization.');
     }
 
+    const memberAccessLevel = accessLevels[member.accessLevel];
     if (
       requiredAccessLevel &&
-      accessLevels[member.accessLevel] < accessLevels[requiredAccessLevel]
+      memberAccessLevel < accessLevels[requiredAccessLevel]
     ) {
       throw new ForbiddenException(`Access denied. ${requiredAccessLevel} access required.`);
     }

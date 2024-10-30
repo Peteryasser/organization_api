@@ -4,6 +4,7 @@ import { OrganizationController } from './organization.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Organization, OrganizationSchema } from './schemas/organization.schema';
 import { AuthModule } from 'src/auth/auth.module';
+import { RoleModule } from '@src/role/role.module';
 
 @Module({
   imports: [
@@ -11,7 +12,8 @@ import { AuthModule } from 'src/auth/auth.module';
       name: Organization.name,
       schema: OrganizationSchema
     }]),
-    AuthModule
+    AuthModule,
+    RoleModule
   ],
   
   controllers: [OrganizationController],

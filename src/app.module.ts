@@ -8,6 +8,7 @@ import { JwtModule } from '@nestjs/jwt';
 import config from './config/config';
 import { RedisModule, RedisModuleOptions } from '@liaoliaots/nestjs-redis';
 import { OrganizationModule } from './organization/organization.module';
+import { RoleModule } from './role/role.module';
 
 
 @Module({
@@ -48,7 +49,8 @@ import { OrganizationModule } from './organization/organization.module';
       inject: [ConfigService],
     }),
     AuthModule,
-    OrganizationModule
+    OrganizationModule,
+    RoleModule
   ],
   controllers: [AppController],
   providers: [AppService],
